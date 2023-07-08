@@ -54,6 +54,11 @@ const SimpleInput = props => {
     }
   }
 
+  // <input onBlur>
+  function inputLostFocusHandler(e) {
+    const inputTag = e.target
+    validateInput(inputTag)
+  }
   useEffect(() => {
     setInit()
   }, [])
