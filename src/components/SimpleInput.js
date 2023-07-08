@@ -18,6 +18,42 @@ const SimpleInput = props => {
     }
   }
 
+  // xác thực <input> có hợp lệ không?
+  function validateInput(inputTag) {
+    let isValid = true
+    // inputIsInvalid = inputIsValid: false + inputIsTouched: true
+    setInputIsTouched(preState => ({ ...preState, [inputTag.id]: true }))
+    if (inputTag.value.trim() == '') {
+      setInputIsValid(preState => ({ ...preState, [inputTag.id]: false }))
+      isValid = false
+    } else {
+      setInputIsValid(preState => ({ ...preState, [inputTag.id]: true }))
+    }
+
+    return isValid
+  }
+
+  // <form onSubmit>
+  function submitHandler(e) {
+    e.preventDefault()
+
+    let formIsValid = true
+    const inputTags = [...e.target.elements]
+
+    for (let index = 0; index < inputTags.length - 1; index++) {
+      const inputTag = inputTags[index]
+      if (!validateInput(inputTag)) {
+        formIsValid = false
+      }
+    }
+
+    // nếu form hợp lệ thì ...
+    if (formIsValid) {
+      alert(`Form is send ✅`)
+      setInit()
+    }
+  }
+
   useEffect(() => {
     setInit()
   }, [])
