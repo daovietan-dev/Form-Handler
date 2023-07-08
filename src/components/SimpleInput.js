@@ -59,6 +59,18 @@ const SimpleInput = props => {
     const inputTag = e.target
     validateInput(inputTag)
   }
+
+  // <input onChange>
+  function inputChangeHandler(e) {
+    setInputValue(preState => ({
+      ...preState,
+      [inputTag.id]: inputTag.value,
+    }))
+
+    const inputTag = e.target
+    validateInput(inputTag)
+  }
+
   useEffect(() => {
     setInit()
   }, [])
